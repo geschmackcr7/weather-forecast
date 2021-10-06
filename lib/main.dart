@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/screens/login_screen.dart';
-import 'package:weather_forecast/screens/registration_screen.dart';
+import 'package:weather_forecast/screens/signup_screen.dart';
 import 'package:weather_forecast/screens/weather_forecast_screen.dart';
-import 'package:weather_forecast/screens/welcome_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,12 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomeScreen.id,
+      initialRoute: '/',
       routes: {
-        WelcomeScreen.id: (context) => WelcomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        RegistrationScreen.id: (context) => RegistrationScreen(),
-        WeatherForecastScreen.id: (context) => RegistrationScreen(),
+        '/': (context) => const LoginScreen(),
+        '/signUp': (context) => const SignupScreen(),
+        '/weatherForecast': (context) => const WeatherForecastScreen(),
       },
     );
   }
