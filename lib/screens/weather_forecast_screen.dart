@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../services/weather.dart';
 
 class WeatherForecastScreen extends StatefulWidget {
   const WeatherForecastScreen({Key? key}) : super(key: key);

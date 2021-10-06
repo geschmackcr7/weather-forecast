@@ -36,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextField(
               textAlign: TextAlign.center,
+              obscureText: true,
               onChanged: (value) {},
               decoration: kTextFieldDecoration.copyWith(
                   hintText: 'Enter your password'),
