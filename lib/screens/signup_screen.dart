@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../components/rounded_button.dart';
@@ -21,7 +23,6 @@ class _SignupScreenState extends State<SignupScreen> {
   Future<dynamic> createUser() async {
     String url =
         dotenv.get('API_AUTH_HOST') + dotenv.get('API_AUTH_SIGNUP_PATH');
-    //print(url);
     try {
       final response = await http.post(
         Uri.parse(url),
@@ -33,17 +34,17 @@ class _SignupScreenState extends State<SignupScreen> {
         body:
             jsonEncode(<String, String>{'email': email, 'password': password}),
       );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        String data = response.body;
+        return jsonDecode(data);
+      } else {
+        return null;
+      }
     } catch (e) {
       print(e);
     }
-    //print(response.statusCode);
     return null;
-    // if (response.statusCode == 200) {
-    //   String data = response.body;
-    //   return jsonDecode(data);
-    // } else {
-    //   return null;
-    // }
   }
 
   @override
@@ -100,19 +101,42 @@ class _SignupScreenState extends State<SignupScreen> {
                 print(confirmPassword);
                 if (password != confirmPassword) {
                   print('Confirm password is invalid');
+                  _showToast(context, 'Invalid !!!');
                   return;
                 }
                 try {
                   var data = await createUser();
                   print(data);
-                  Navigator.pop(context);
+                  if (data == null) {
+                    _showToast(context, 'Invalid !!!');
+                  } else {
+                    _showToast(context, 'successful !!!');
+                    sleep(Duration(seconds: 1));
+                    Navigator.pop(context);
+                  }
                 } catch (e) {
-                  print(e);
+                  _showToast(context, 'System Error !!!');
                 }
               },
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showToast(BuildContext context, String message) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Colors.red,
+          ),
+        ),
+        action: SnackBarAction(
+            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

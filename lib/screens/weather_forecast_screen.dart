@@ -11,7 +11,12 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: null,
+      body: TextButton(
+        child: Text('Back'),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
     );
   }
 }
