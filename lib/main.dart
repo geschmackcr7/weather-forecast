@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast/screens/loading_screen.dart';
 import 'package:weather_forecast/screens/login_screen.dart';
 import 'package:weather_forecast/screens/signup_screen.dart';
 import 'package:weather_forecast/screens/weather_forecast_screen.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginScreen(),
         '/signUp': (context) => const SignupScreen(),
-        '/weatherForecast': (context) => const WeatherForecastScreen(),
+        //'/weatherForecast': (context) => WeatherForecastScreen(),
+        '/loadingScreen': (context) => LoadingScreen(),
       },
     );
   }
