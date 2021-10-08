@@ -111,7 +111,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     _showToast(context, 'Invalid !!!');
                   } else {
                     _showToast(context, 'successful !!!');
-                    sleep(Duration(seconds: 1));
+                    //sleep(Duration(seconds: 1));
                     Navigator.pop(context);
                   }
                 } catch (e) {

@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (data == null) {
                         _showToast(context, 'Invalid !!!');
                       } else {
-                        Navigator.pushNamed(context, '/loadingScreen');
+                        Navigator.pushNamed(context, '/weatherForecast');
                       }
                     } catch (e) {
                       _showToast(context, 'System Error !!!');

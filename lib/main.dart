@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginScreen(),
         '/signUp': (context) => const SignupScreen(),
-        //'/weatherForecast': (context) => WeatherForecastScreen(),
-        '/loadingScreen': (context) => LoadingScreen(),
+        '/weatherForecast': (context) => const WeatherForecastScreen(),
+        //'/loadingScreen': (context) => LoadingScreen(),
       },
     );
   }

@@ -27,8 +27,6 @@ class WeatherData {
     } else {
       var temperature = data['main']['temp'];
       var condition = data['weather'][0]['id'];
-      print(temperature);
-      print(condition);
       for (int i = 0; i < 7; i++) {
         temp.add(temperature.toInt() + i % 4);
         weatherMessage.add(weather.getMessage(temperature.toInt() + i % 4));
