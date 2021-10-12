@@ -1,4 +1,4 @@
-import '../services/weather_model.dart';
+import '../../core/services/weather_model.dart';
 
 class WeatherData {
   List<String> day = <String>[
