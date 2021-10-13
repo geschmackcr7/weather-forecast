@@ -59,10 +59,9 @@ class Weather {
 }
 
 class WeatherState {
-  List<Weather>? weatherData = List.generate(7, (index) => Weather());
+  List<Weather> weatherData = List.generate(7, (index) => Weather());
   final FormSubmissionStatus formStatus;
   WeatherState({
-    this.weatherData,
     this.formStatus = const InitialFormStatus(),
   });
 
@@ -70,13 +69,15 @@ class WeatherState {
     dynamic respone,
     FormSubmissionStatus? formStatus,
   }) {
-    return WeatherState(
+    WeatherState weatherState = WeatherState(
       formStatus: formStatus ?? this.formStatus,
-      weatherData: geneList(respone),
     );
+    if (respone != null) weatherState.weatherData = geneList(respone);
+    return weatherState;
   }
 
   List<Weather> geneList(dynamic respone) {
+    print(respone);
     List<Weather> data = [];
     for (int i = 0; i < 7; ++i) {
       Weather weather = Weather();

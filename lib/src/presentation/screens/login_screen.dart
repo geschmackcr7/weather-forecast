@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: BlocProvider(
         create: (context) => LoginBloc(
-          authRepo: context.read<AuthRepository>(),
+          authRepo: AuthRepository(),
         ),
         child: _loginForm(context),
       ),

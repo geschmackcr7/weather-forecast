@@ -1,5 +1,7 @@
 abstract class FormSubmissionStatus {
   const FormSubmissionStatus();
+
+  static fromMap(map) {}
 }
 
 class InitialFormStatus extends FormSubmissionStatus {

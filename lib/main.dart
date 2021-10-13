@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/src/domain/repositories/auth_repository.dart';
+import 'package:weather_forecast/src/domain/repositories/weather_repository.dart';
+import 'package:weather_forecast/src/presentation/blocs/login_bloc.dart';
+import 'package:weather_forecast/src/presentation/blocs/signup_bloc.dart';
+import 'package:weather_forecast/src/presentation/blocs/weather_bloc.dart';
 import 'package:weather_forecast/src/presentation/screens/login_screen.dart';
 import 'package:weather_forecast/src/presentation/screens/signup_screen.dart';
 import 'package:weather_forecast/src/presentation/screens/weather_screen.dart';
@@ -15,8 +19,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => AuthRepository(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<WeatherBloc>(
+          create: (context) => WeatherBloc(weatherRepo: WeatherRepository()),
+        ),
+        BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(authRepo: AuthRepository()),
+        ),
+        BlocProvider<SignupBloc>(
+          create: (context) => SignupBloc(authRepo: AuthRepository()),
+        ),
+      ],
       child: MaterialApp(
         initialRoute: '/',
         routes: {

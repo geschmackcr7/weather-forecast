@@ -10,6 +10,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
   @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
+    print(event);
     if (event is WeatherGetted) {
       yield state.copyWith(formStatus: FormSubmitting());
 
@@ -19,6 +20,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           formStatus: SubmissionSuccess(),
           respone: respone,
         );
+        print("----");
+        print(state.weatherData);
       } catch (e) {
         yield state.copyWith(
             formStatus: SubmissionFailed(Exception('Invalid')));

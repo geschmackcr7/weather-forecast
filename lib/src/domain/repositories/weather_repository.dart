@@ -12,7 +12,8 @@ class WeatherRepository {
         HttpHeaders.authorizationHeader: dotenv.get('API_WEATHER_KEY'),
       });
       if (response.statusCode == 200) {
-        String data = response.body;
+        var data = response.body;
+        print(data);
         return jsonDecode(data);
       } else
         return null;
