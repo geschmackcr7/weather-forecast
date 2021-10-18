@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'package:weather_forecast/src/domain/events/form_submittion_status.dart';
 
-class LoginState {
+class LoginState extends Equatable {
   final String username;
   bool get isValidUsername => username.length > 3;
 
@@ -26,4 +28,7 @@ class LoginState {
       formStatus: formStatus ?? this.formStatus,
     );
   }
+
+  @override
+  List<Object> get props => [username, password, formStatus];
 }

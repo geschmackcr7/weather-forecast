@@ -1,14 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_service.dart';
+part of 'weather_api_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-class _ApiService implements ApiService {
-  _ApiService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://stage-gw.skyx.vn/authentication';
+class _WeatherApiService implements WeatherApiService {
+  _WeatherApiService(this._dio, {this.baseUrl}) {
+    baseUrl ??=
+        'https://api.openweathermap.org/data/2.5/weather?q=Hanoi&appid=18a8967084c88b2a4b6e0e5045e5ac03';
   }
 
   final Dio _dio;
@@ -16,19 +17,19 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<LoginResponse> login(body) async {
+  Future<WeatherResponse> getWeatherData(body) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<LoginResponse>(
-            Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/sign_in',
+        _setStreamType<WeatherResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = LoginResponse.fromJson(_result.data!);
+    final value = WeatherResponse.fromJson(_result.data!);
     return value;
   }
 

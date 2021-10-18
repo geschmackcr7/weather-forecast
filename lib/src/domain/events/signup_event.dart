@@ -16,3 +16,5 @@ class SignupConfirmPasswordChanged extends SignupEvent {
 }
 
 class SignupSubmitted extends SignupEvent {}
+
+class SignupReset extends SignupEvent {}

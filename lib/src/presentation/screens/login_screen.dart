@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_forecast/src/domain/repositories/auth_repository.dart';
 import 'package:weather_forecast/src/domain/events/form_submittion_status.dart';
 import 'package:weather_forecast/src/presentation/blocs/login_bloc.dart';
 import 'package:weather_forecast/src/domain/events/login_event.dart';
@@ -23,12 +22,7 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: Colors.red,
       ),
       backgroundColor: Colors.white,
-      body: BlocProvider(
-        create: (context) => LoginBloc(
-          authRepo: AuthRepository(),
-        ),
-        child: _loginForm(context),
-      ),
+      body: _loginForm(context),
     );
   }
 
@@ -102,6 +96,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget _loginButton() {
     return BlocConsumer<LoginBloc, LoginState>(listener: (context, state) {
+      print(state.formStatus);
       if (state.formStatus is SubmissionSuccess) {
         Navigator.pushNamed(context, '/weatherForecast');
       }
@@ -114,7 +109,6 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   context.read<LoginBloc>().add(LoginSubmitted());
-                  print(state.formStatus);
                 }
               },
             );

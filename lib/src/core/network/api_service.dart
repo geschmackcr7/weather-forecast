@@ -7,7 +7,7 @@ part 'api_service.g.dart';
 
 // done this file
 
-@RestApi(baseUrl: 'https://stage-gw.skyx.vn')
+@RestApi(baseUrl: 'https://stage-gw.skyx.vn/authentication')
 abstract class ApiService {
   factory ApiService(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(
@@ -15,7 +15,6 @@ abstract class ApiService {
         connectTimeout: 30000,
         contentType: 'application/json',
         headers: {
-          'Content-Type': 'application/json',
           'Access-Control-Allow-Headers': 'Access-Control-Allow-Origin, Accept',
           'X-Consumer-Username': 'acc.user.1593502251879746903',
           'x-sha1-fingerprint': dotenv.get('API_KEY'),
@@ -25,6 +24,6 @@ abstract class ApiService {
   }
 
   // Login Service
-  @POST('/authentication/sign_in')
+  @POST('/sign_in')
   Future<LoginResponse> login(@Body() Map<String, dynamic> body);
 }

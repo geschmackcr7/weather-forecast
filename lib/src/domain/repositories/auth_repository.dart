@@ -11,33 +11,17 @@ class AuthRepository {
       'email': email,
       'password': password,
     };
-    // String url =
-    //     dotenv.get('API_AUTH_HOST') + dotenv.get('API_AUTH_SIGNIN_PATH');
     try {
-      // final response = await http.post(
-      //   Uri.parse(url),
-      //   headers: <String, String>{
-      //     'Content-Type': 'application/json',
-      //     'Access-Control-Allow-Headers': 'Access-Control-Allow-Origin, Accept',
-      //     'X-Consumer-Username': 'acc.user.1593502251879746903',
-      //     'x-sha1-fingerprint': dotenv.get('API_KEY'),
-      //   },
-      //   body:
-      //       jsonEncode(<String, String>{'email': email, 'password': password}),
-      // );
       ApiService apiService = ApiService(dio.Dio());
       final response = await apiService.login(loginData);
-      print(response);
-      // ignore: unnecessary_null_comparison
-      if (true) {
-        var data = response;
-        print(data);
-        return data;
+      print(response.fullName);
+      if (response != null) {
+        return response;
       } else {
         throw Exception('Valid');
       }
     } catch (e) {
-      throw e;
+      throw (e);
     }
   }
 
@@ -59,13 +43,14 @@ class AuthRepository {
       );
       print(response.statusCode);
       if (response.statusCode == 200) {
-        String data = response.body;
+        var data = response.body;
+        print(data);
         return jsonDecode(data);
       } else {
         throw Exception('Account existed !');
       }
     } catch (e) {
-      throw e;
+      throw Exception('Invalid !');
     }
   }
 }

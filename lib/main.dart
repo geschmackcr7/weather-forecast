@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/src/domain/repositories/auth_repository.dart';
-import 'package:weather_forecast/src/domain/repositories/weather_repository.dart';
+import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_forecast/src/domain/repositories/weather_box.dart';
+import 'package:weather_forecast/src/injector.dart';
 import 'package:weather_forecast/src/presentation/blocs/login_bloc.dart';
 import 'package:weather_forecast/src/presentation/blocs/signup_bloc.dart';
 import 'package:weather_forecast/src/presentation/blocs/weather_bloc.dart';
@@ -12,33 +14,36 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  runApp(MyApp());
-}
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var token = prefs.getString('token');
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
+  configureDependencies();
+
+  WeatherBox weatherBox = GetIt.instance<WeatherBox>();
+  await weatherBox.init();
+
+  runApp(
+    MultiBlocProvider(
       providers: [
         BlocProvider<WeatherBloc>(
-          create: (context) => WeatherBloc(weatherRepo: WeatherRepository()),
+          create: (context) => WeatherBloc(),
         ),
         BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(authRepo: AuthRepository()),
+          create: (context) => LoginBloc(),
         ),
         BlocProvider<SignupBloc>(
-          create: (context) => SignupBloc(authRepo: AuthRepository()),
+          create: (context) => SignupBloc(),
         ),
       ],
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: token == null ? '/login' : '/weatherForecast',
         routes: {
-          '/': (context) => LoginScreen(),
+          '/login': (context) => LoginScreen(),
           '/signUp': (context) => SignupScreen(),
           '/weatherForecast': (context) => WeatherForecastScreen(),
         },
       ),
-    );
-  }
+    ),
+  );
 }

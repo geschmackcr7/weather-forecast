@@ -20,12 +20,7 @@ class SignupScreen extends StatelessWidget {
         backgroundColor: Colors.red,
       ),
       backgroundColor: Colors.white,
-      body: BlocProvider(
-        create: (context) => SignupBloc(
-          authRepo: context.read<AuthRepository>(),
-        ),
-        child: _signupForm(),
-      ),
+      body: _signupForm(),
     );
   }
 
@@ -34,7 +29,12 @@ class SignupScreen extends StatelessWidget {
       listener: (context, state) {
         final formStatus = state.formStatus;
         if (formStatus is SubmissionFailed) {
+          context.read<SignupBloc>().add(SignupReset());
           _showToast(context, formStatus.exception.toString());
+        }
+        if (formStatus is SubmissionSuccess) {
+          context.read<SignupBloc>().add(SignupReset());
+          Navigator.pop(context);
         }
       },
       child: Form(
